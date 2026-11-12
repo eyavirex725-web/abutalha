@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مركز أبو طلحة للتقديم الإلكتروني وخدمات الطلاب</title>
+<meta name="description" content="مركز أبو طلحة: التقديم الإلكتروني للجامعات السودانية الحكومية والخاصة، والإرشاد في اختيار الرغبات ومتابعة الشواغر.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B2545;
+    --blue: #2F6FB5;
+    --gold: #F4B63D;
+    --gold-deep: #C98F1B;
+    --green: #1FA855;
+    --bg: #EEF4FB;
+    --surface: #FFFFFF;
+    --text: #0B2545;
+    --muted: #3E5C86;
+    --line: #D3E0EF;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #08172B;
+      --surface: #102B4D;
+      --text: #EAF1FA;
+      --muted: #A9BFDB;
+      --line: #23426B;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: Cairo, Tajawal, "Segoe UI", Tahoma, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.9; font-size: 18px; }
+  a { color: inherit; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 22px; }
+  :focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+  /* Header */
+  header.top { background: var(--navy); color: #fff; position: sticky; top: 0; z-index: 20; }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; padding-top: 10px; padding-bottom: 10px; gap: 12px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 800; font-size: 18px; line-height: 1.4; }
+  .brand .logo-slot svg { width: 42px; height: 42px; display: block; }
+  nav { display: flex; align-items: center; flex-wrap: wrap; }
+  nav a { text-decoration: none; color: #D9E5F5; margin-inline-start: 16px; font-size: 15px; padding: 4px 0; border-bottom: 2px solid transparent; }
+  nav a:hover { color: var(--gold); }
+  nav a.on { color: var(--gold); border-bottom-color: var(--gold); }
+  .menu-btn { display: none; background: none; border: 2px solid var(--gold); color: #fff; border-radius: 12px; font: inherit; font-weight: 800; padding: 4px 14px; cursor: pointer; }
+  @media (max-width: 900px) {
+    .menu-btn { display: block; }
+    nav { display: none; position: absolute; inset-inline: 0; top: 100%; background: var(--navy); flex-direction: column; align-items: stretch; padding: 8px 22px 18px; border-top: 1px solid #23426B; }
+    nav.open { display: flex; }
+    nav a { margin: 0; padding: 10px 0; font-size: 17px; border-bottom: 1px solid #1B3A62; }
+  }
+
+  /* Pages */
+  .page { display: none; }
+  .page.show { display: block; }
+  .pagehead { background: var(--navy); color: #fff; padding: 38px 0 44px; }
+  .pagehead h1 { font-size: clamp(28px, 6vw, 44px); font-weight: 800; line-height: 1.4; }
+  .pagehead p { color: #D9E5F5; margin-top: 8px; max-width: 36em; }
+
+  /* Hero */
+  .hero { background: var(--navy); color: #fff; padding: 56px 0 84px; position: relative; overflow: hidden; }
+  .hero::before, .hero::after { content: ""; position: absolute; border-radius: 50%; background: var(--gold); opacity: .09; }
+  .hero::before { width: 420px; height: 420px; top: -180px; inset-inline-start: -120px; }
+  .hero::after { width: 300px; height: 300px; bottom: -150px; inset-inline-end: -80px; }
+  .hero .wrap { position: relative; z-index: 1; }
+  .hero h1 { font-size: clamp(36px, 8vw, 68px); font-weight: 800; line-height: 1.35; max-width: 14em; }
+  .hero p { margin-top: 18px; font-size: clamp(18px, 3.6vw, 22px); color: #D9E5F5; max-width: 34em; }
+  .cta { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; border-radius: 999px; font-weight: 800; font-size: 17px; text-decoration: none; border: 2px solid var(--gold); transition: transform .15s ease; cursor: pointer; font-family: inherit; }
+  .btn.solid { background: var(--gold); color: var(--navy); }
+  .btn.ghost { color: #fff; background: transparent; }
+  .btn.line { color: var(--text); background: transparent; }
+  .btn:hover { transform: translateY(-2px); }
+
+  /* Sections */
+  section { padding: 56px 0; }
+  h2 { font-size: clamp(24px, 5vw, 34px); font-weight: 800; margin-bottom: 22px; padding-inline-start: 16px; border-inline-start: 8px solid var(--gold); line-height: 1.5; }
+  .about p { max-width: 40em; margin-bottom: 14px; }
+  .about p.quiet { color: var(--muted); }
+  .band { background: var(--surface); border-block: 1px solid var(--line); }
+  .ticks { list-style: none; display: grid; grid-template-columns: 1fr; }
+  @media (min-width: 720px) { .ticks { grid-template-columns: 1fr 1fr; column-gap: 48px; } }
+  .ticks li { display: flex; gap: 14px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--line); font-weight: 600; }
+  .tick { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--green); display: grid; place-items: center; margin-top: 4px; }
+  .tick svg { width: 16px; height: 16px; }
+
+  .quick { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
+  @media (min-width: 720px) { .quick { grid-template-columns: repeat(4, 1fr); } }
+  .quick a { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 14px; text-decoration: none; font-weight: 800; text-align: center; border-bottom: 5px solid var(--gold); }
+  .quick a:hover { transform: translateY(-3px); }
+  .quick a { transition: transform .15s ease; }
+
+  .cards { display: grid; gap: 18px; grid-template-columns: 1fr; }
+  @media (min-width: 720px) { .cards { grid-template-columns: 1fr 1fr; } }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .card h3 { font-size: 20px; line-height: 1.6; }
+  .card p { color: var(--muted); flex: 1; }
+  .card .btn { align-self: flex-start; padding: 9px 22px; font-size: 16px; }
+  .badge { display: inline-block; font-size: 14px; font-weight: 800; padding: 1px 12px; border-radius: 999px; background: var(--navy); color: var(--gold); margin-inline-end: 6px; }
+  .meta { color: var(--muted); font-size: 15px; }
+  .kv { display: grid; grid-template-columns: 7.5em 1fr; gap: 2px 12px; font-size: 16px; }
+  .kv b { color: var(--muted); font-weight: 600; }
+
+  /* FAQ */
+  details { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; margin-bottom: 12px; }
+  summary { cursor: pointer; padding: 16px 20px; font-weight: 800; list-style: none; display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font-size: 26px; line-height: 1; color: var(--gold-deep); flex: none; }
+  details[open] summary::after { content: "–"; }
+  details .ans { padding: 0 20px 18px; color: var(--muted); }
+  details .ans .btn { margin-top: 12px; padding: 8px 20px; font-size: 16px; color: var(--navy); }
+
+  /* Forms */
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 24px; }
+  .panel h3 { font-size: 20px; margin-bottom: 10px; }
+  .panel a.row { display: block; padding: 8px 0; text-decoration: none; font-weight: 600; }
+  .panel a.row:hover { color: var(--gold-deep); }
+  .contact-grid { display: grid; gap: 18px; grid-template-columns: 1fr; }
+  @media (min-width: 720px) { .contact-grid { grid-template-columns: 1fr 1fr; } }
+  .num { direction: ltr; unicode-bidi: embed; display: inline-block; font-weight: 800; letter-spacing: 1px; }
+  .note { color: var(--muted); font-size: 15px; font-weight: 400; }
+  label { display: block; font-weight: 800; margin: 12px 0 4px; font-size: 16px; }
+  input, select, textarea { width: 100%; font: inherit; padding: 11px 14px; border-radius: 14px; border: 2px solid var(--line); background: var(--bg); color: var(--text); }
+  input:focus, select:focus, textarea:focus { border-color: var(--gold); outline: none; }
+  textarea { min-height: 120px; resize: vertical; }
+  .filters { display: grid; gap: 12px; grid-template-columns: 1fr; margin-bottom: 22px; }
+  @media (min-width: 720px) { .filters { grid-template-columns: 220px 1fr; } }
+  .filters label { margin: 0 0 4px; }
+  .empty { background: var(--surface); border: 2px dashed var(--line); border-radius: 22px; padding: 30px 24px; text-align: center; color: var(--muted); }
+  .empty .btn { margin-top: 14px; }
+  .stamp { color: var(--muted); font-size: 15px; margin-bottom: 16px; }
+
+  /* Tracking */
+  .steps { list-style: none; margin-top: 18px; display: grid; gap: 10px; }
+  .steps li { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 14px; border: 2px solid var(--line); color: var(--muted); font-weight: 600; }
+  .steps li .dot { width: 22px; height: 22px; border-radius: 50%; border: 3px solid var(--line); flex: none; }
+  .steps li.on { color: var(--text); border-color: var(--green); }
+  .steps li.on .dot { background: var(--green); border-color: var(--green); }
+  .steps li.now { background: var(--surface); box-shadow: 0 0 0 3px rgba(244,182,61,.45); }
+  .msg { margin-top: 16px; padding: 14px 18px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
+
+  /* Identity */
+  .logo-tile { background: var(--navy); border-radius: 28px; padding: 36px 20px; text-align: center; color: #fff; }
+  .logo-tile svg { width: min(220px, 60vw); height: auto; }
+  .logo-tile .nm { font-weight: 800; font-size: clamp(20px, 4vw, 28px); margin-top: 14px; line-height: 1.6; }
+  .logo-tile .sl { color: var(--gold); font-weight: 600; }
+  .swatches { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; margin-top: 8px; }
+  @media (min-width: 720px) { .swatches { grid-template-columns: repeat(4, 1fr); } }
+  .sw { border-radius: 18px; overflow: hidden; border: 1px solid var(--line); background: var(--surface); text-align: center; font-weight: 800; }
+  .sw i { display: block; height: 76px; }
+  .sw span { display: block; padding: 8px 4px; font-size: 15px; }
+  .sw small { display: block; direction: ltr; color: var(--muted); font-weight: 600; padding-bottom: 8px; }
+
+  footer { background: var(--navy); color: #D9E5F5; text-align: center; padding: 36px 22px 96px; }
+  footer strong { display: block; color: #fff; font-size: 20px; margin-bottom: 4px; }
+  .wafab { position: fixed; inset-inline-start: 18px; bottom: 18px; z-index: 10; background: var(--green); color: #fff; text-decoration: none; font-weight: 800; padding: 13px 22px; border-radius: 999px; box-shadow: 0 6px 18px rgba(0,0,0,.28); }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn, .quick a { transition: none; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#/"><span class="logo-slot" aria-hidden="true"></span><span>مركز أبو طلحة<br><small style="font-weight:600;font-size:13px;color:#D9E5F5">للتقديم الإلكتروني وخدمات الطلاب</small></span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">القائمة</button>
+    <nav id="nav">
+      <a href="#/" data-nav="home">الرئيسية</a>
+      <a href="#/services" data-nav="services">خدماتنا</a>
+      <a href="#/vacancies" data-nav="vacancies">الشواغر</a>
+      <a href="#/news" data-nav="news">الأخبار</a>
+      <a href="#/faq" data-nav="faq">الأسئلة الشائعة</a>
+      <a href="#/track" data-nav="track">تتبع طلبك</a>
+      <a href="#/identity" data-nav="identity">هويتنا</a>
+      <a href="#/contact" data-nav="contact">تواصل معنا</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- الرئيسية -->
+<div class="page" id="p-home" data-title="الرئيسية">
+  <div class="hero">
+    <div class="wrap">
+      <h1>نرافقك في رحلتك الجامعية</h1>
+      <p>نساعدك في التقديم للجامعات السودانية الحكومية والخاصة، ونتابع لك الشواغر والتحديثات حتى تكتمل إجراءاتك بسهولة ويسر.</p>
+      <div class="cta">
+        <a class="btn solid" data-wa="السلام عليكم، أرغب في التقديم عبر المركز" target="_blank" rel="noopener">ابدأ التقديم عبر واتساب</a>
+        <a class="btn ghost" data-tel="0">اتصل بنا</a>
+      </div>
+    </div>
+  </div>
+
+  <section style="padding-bottom:0">
+    <div class="wrap">
+      <div class="quick">
+        <a href="#/vacancies">الشواغر الجامعية</a>
+        <a href="#/news">الأخبار والإعلانات</a>
+        <a href="#/track">تتبع طلبك</a>
+        <a href="#/faq">الأسئلة الشائعة</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="wrap">
+      <h2>من نحن</h2>
+      <p>مركز أبو طلحة مركز إلكتروني متخصص في خدمات التقديم للجامعات السودانية الحكومية والخاصة، ومساعدة الطلاب في إكمال إجراءات التقديم الجامعي بكل سهولة ويسر.</p>
+      <p>نرافق الطالب في رحلته الجامعية بالإرشاد في شروط القبول والمفاضلة، والمساعدة في اختيار الرغبات المناسبة، ومتابعة الشواغر والتحديثات الجامعية.</p>
+      <p class="quiet">نؤمن بأن لكل طالب طموحًا يستحق الدعم، ونعمل على توفير الوقت والجهد وتقديم المعلومة الصحيحة.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>خدماتنا</h2>
+      <ul class="ticks" id="homeTicks"></ul>
+      <div style="margin-top:22px"><a class="btn line" href="#/services">كل الخدمات وطلبها</a></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>آخر الأخبار</h2>
+      <div class="cards" id="homeNews"></div>
+      <div style="margin-top:22px"><a class="btn line" href="#/news">كل الأخبار</a></div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>تواصل معنا</h2>
+      <div class="contact-grid contact-panels"></div>
+    </div>
+  </section>
+</div>
+
+<!-- الخدمات -->
+<div class="page" id="p-services" data-title="خدماتنا">
+  <div class="pagehead"><div class="wrap"><h1>خدماتنا</h1><p>اختر الخدمة التي تحتاجها، وسنرد عليك عبر واتساب.</p></div></div>
+  <section><div class="wrap"><div class="cards" id="svcCards"></div></div></section>
+</div>
+
+<!-- الشواغر -->
+<div class="page" id="p-vacancies" data-title="الشواغر الجامعية">
+  <div class="pagehead"><div class="wrap"><h1>الشواغر الجامعية</h1><p>تُنشر هنا المعلومات المؤكدة فقط، مع تاريخ آخر تحديث.</p></div></div>
+  <section>
+    <div class="wrap">
+      <div class="stamp">آخر تحديث للبيانات: <span class="num" id="vacStamp"></span></div>
+      <div class="filters">
+        <div><label for="vacType">نوع الجامعة</label>
+          <select id="vacType"><option value="">الكل</option><option value="gov">الجامعات الحكومية</option><option value="private">الجامعات الخاصة</option></select></div>
+        <div><label for="vacQ">بحث (جامعة، كلية، تخصص)</label><input id="vacQ" type="search" placeholder="اكتب للبحث"></div>
+      </div>
+      <div class="cards" id="vacList"></div>
+    </div>
+  </section>
+</div>
+
+<!-- الأخبار -->
+<div class="page" id="p-news" data-title="الأخبار والإعلانات">
+  <div class="pagehead"><div class="wrap"><h1>الأخبار والإعلانات</h1><p>إعلانات التقديم، أخبار القبول، المواعيد، والتنبيهات المهمة.</p></div></div>
+  <section><div class="wrap"><div class="cards" id="newsList" style="grid-template-columns:1fr"></div></div></section>
+</div>
+
+<!-- الأسئلة -->
+<div class="page" id="p-faq" data-title="الأسئلة الشائعة">
+  <div class="pagehead"><div class="wrap"><h1>الأسئلة الشائعة</h1><p>اضغط على السؤال لعرض الإجابة.</p></div></div>
+  <section><div class="wrap" id="faqList"></div></section>
+</div>
+
+<!-- التتبع -->
+<div class="page" id="p-track" data-title="تتبع طلبك">
+  <div class="pagehead"><div class="wrap"><h1>تتبع طلبك</h1><p>أدخل الرقم المرجعي الذي أعطاك إياه المركز لمعرفة حالة طلبك.</p></div></div>
+  <section>
+    <div class="wrap">
+      <form class="panel" id="trackForm" style="max-width:560px">
+        <label for="ref">الرقم المرجعي</label>
+        <input id="ref" dir="ltr" autocomplete="off" placeholder="AT-XXXXX-XXXXX" style="text-align:start">
+        <div style="margin-top:16px"><button class="btn solid" type="submit">استعلام</button></div>
+        <div id="trackOut"></div>
+      </form>
+      <p class="meta" style="margin-top:14px;max-width:560px">يظهر لك الرقم المرجعي حالة طلبك فقط، ولا تُعرض أي بيانات شخصية.</p>
+    </div>
+  </section>
+</div>
+
+<!-- الهوية -->
+<div class="page" id="p-identity" data-title="هويتنا">
+  <div class="pagehead"><div class="wrap"><h1>هوية المركز</h1><p>كتاب مفتوح وقبعة تخرج، رمز للعلم والمرافقة في الرحلة الجامعية.</p></div></div>
+  <section>
+    <div class="wrap">
+      <div class="logo-tile">
+        <span class="logo-slot"></span>
+        <div class="nm">مركز أبو طلحة للتقديم الإلكتروني وخدمات الطلاب</div>
+        <div class="sl">نرافقك في رحلتك الجامعية</div>
+      </div>
+      <div style="margin:22px 0 34px"><button class="btn solid" id="dlLogo" type="button">تنزيل الشعار (SVG)</button></div>
+      <h2>ألوان الهوية</h2>
+      <div class="swatches">
+        <div class="sw"><i style="background:#0B2545"></i><span>كحلي</span><small>#0B2545</small></div>
+        <div class="sw"><i style="background:#2F6FB5"></i><span>أزرق</span><small>#2F6FB5</small></div>
+        <div class="sw"><i style="background:#FFFFFF;border-bottom:1px solid var(--line)"></i><span>أبيض</span><small>#FFFFFF</small></div>
+        <div class="sw"><i style="background:#F4B63D"></i><span>ذهبي</span><small>#F4B63D</small></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- التواصل -->
+<div class="page" id="p-contact" data-title="تواصل معنا">
+  <div class="pagehead"><div class="wrap"><h1>تواصل معنا</h1><p>اتصل بنا، أو راسلنا عبر واتساب، أو أرسل استفسارك من النموذج.</p></div></div>
+  <section>
+    <div class="wrap">
+      <div class="contact-grid contact-panels"></div>
+      <div class="cta" style="margin-top:22px"><a class="btn solid" data-wa="السلام عليكم، لدي استفسار" target="_blank" rel="noopener">محادثة واتساب مباشرة</a></div>
+      <h2 style="margin-top:46px">أرسل استفسارًا</h2>
+      <form class="panel" id="msgForm" style="max-width:640px">
+        <label for="mName">الاسم</label><input id="mName" required>
+        <label for="mPhone">رقم الهاتف (اختياري)</label><input id="mPhone" dir="ltr" inputmode="tel" style="text-align:start">
+        <label for="mText">استفسارك</label><textarea id="mText" required></textarea>
+        <div style="margin-top:16px"><button class="btn solid" type="submit">إرسال عبر واتساب</button></div>
+        <p class="meta" style="margin-top:10px">عند الإرسال يُفتح واتساب برسالتك جاهزة، فتضغط إرسال لتصل إلى المركز.</p>
+      </form>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer>
+  <strong>مركز أبو طلحة للتقديم الإلكتروني وخدمات الطلاب</strong>
+  نرافقك في رحلتك الجامعية
+</footer>
+
+<a class="wafab" data-wa="السلام عليكم" target="_blank" rel="noopener" aria-label="تواصل عبر واتساب">راسلنا على واتساب</a>
+
+<script src="data.js"></script>
+<script>
+(function () {
+  var D = window.SITE_DATA || {};
+  var C = D.contact || {};
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function tel(n) { return 'tel:+249' + String(n).replace(/\D/g, '').replace(/^0/, ''); }
+  function wa(msg) { return 'https://wa.me/' + (C.whatsapp || '') + (msg ? '?text=' + encodeURIComponent(msg) : ''); }
+
+  var TICK = '<svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg>';
+  var LOGO = '<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="شعار مركز أبو طلحة">' +
+    '<path d="M10 74C30 66 48 68 60 78V104C48 94 30 92 10 100Z" fill="#FFFFFF"/>' +
+    '<path d="M110 74C90 66 72 68 60 78V104C72 94 90 92 110 100Z" fill="#FFFFFF"/>' +
+    '<path d="M60 78V104" stroke="#2F6FB5" stroke-width="3"/>' +
+    '<path d="M38 42v14q22 12 44 0V42L60 52z" fill="#C98F1B"/>' +
+    '<polygon points="60,16 100,32 60,48 20,32" fill="#F4B63D"/>' +
+    '<path d="M96 34v22" stroke="#F4B63D" stroke-width="3"/><circle cx="96" cy="59" r="4" fill="#F4B63D"/></svg>';
+  $$('.logo-slot').forEach(function (s) { s.innerHTML = LOGO; });
+
+  // روابط واتساب والهاتف
+  $$('[data-wa]').forEach(function (a) { a.href = wa(a.getAttribute('data-wa')); });
+  $$('[data-tel]').forEach(function (a) { var p = (C.phones || [])[0]; if (p) a.href = tel(p.num); });
+
+  // لوحات التواصل
+  $$('.contact-panels').forEach(function (box) {
+    var p1 = el('div', 'panel'); p1.appendChild(el('h3', null, 'الهاتف والبريد'));
+    (C.phones || []).forEach(function (ph) {
+      var a = el('a', 'row'); a.href = tel(ph.num); a.appendChild(el('span', 'num', ph.num));
+      if (ph.note) { a.appendChild(document.createTextNode(' ')); a.appendChild(el('span', 'note', ph.note)); }
+      p1.appendChild(a);
+    });
+    if (C.email) { var m = el('a', 'row'); m.href = 'mailto:' + C.email; m.appendChild(el('span', 'num', C.email)); p1.appendChild(m); }
+    var p2 = el('div', 'panel'); p2.appendChild(el('h3', null, 'منصاتنا'));
+    if (C.channel) { var a1 = el('a', 'row', 'قناة واتساب: آخر الشواغر والإعلانات'); a1.href = C.channel; a1.target = '_blank'; a1.rel = 'noopener'; p2.appendChild(a1); }
+    if (C.group) { var a2 = el('a', 'row', 'مجموعة الاستشارات والتفاكر'); a2.href = C.group; a2.target = '_blank'; a2.rel = 'noopener'; p2.appendChild(a2); }
+    box.appendChild(p1); box.appendChild(p2);
+  });
+
+  // الرئيسية: قائمة الخدمات
+  var ht = $('#homeTicks');
+  (D.services || []).forEach(function (s) {
+    var li = el('li'); var t = el('span', 'tick'); t.innerHTML = TICK; li.appendChild(t); li.appendChild(el('span', null, s.title)); ht.appendChild(li);
+  });
+
+  // بطاقات الخدمات
+  var sc = $('#svcCards');
+  (D.services || []).forEach(function (s) {
+    var c = el('div', 'card'); c.appendChild(el('h3', null, s.title)); c.appendChild(el('p', null, s.desc));
+    var b = el('a', 'btn solid', 'اطلب الخدمة'); b.href = wa('السلام عليكم، أرغب في خدمة: ' + s.title); b.target = '_blank'; b.rel = 'noopener';
+    c.appendChild(b); sc.appendChild(c);
+  });
+
+  // الأسئلة الشائعة
+  var fl = $('#faqList');
+  (D.faq || []).forEach(function (f) {
+    var d = el('details'); d.appendChild(el('summary', null, f.q));
+    var ans = el('div', 'ans'); ans.appendChild(el('p', null, f.a));
+    var wb = el('a', 'btn solid', 'اسأل عبر واتساب'); wb.href = wa('السلام عليكم، لدي استفسار: ' + f.q); wb.target = '_blank'; wb.rel = 'noopener';
+    ans.appendChild(wb); d.appendChild(ans); fl.appendChild(d);
+  });
+
+  // الأخبار
+  var CATS = { open: 'فتح التقديم', admission: 'القبول الجامعي', dates: 'المواعيد', results: 'نتائج القبول', alert: 'تنبيه مهم', universities: 'أخبار الجامعات' };
+  function sortedNews() { return (D.news || []).slice().sort(function (a, b) { return String(b.date).localeCompare(String(a.date)); }); }
+  function newsCard(n) {
+    var c = el('div', 'card'); var top = el('div'); top.appendChild(el('span', 'badge', CATS[n.category] || 'إعلان')); top.appendChild(el('span', 'meta num', n.date || '')); c.appendChild(top);
+    c.appendChild(el('h3', null, n.title)); if (n.body) c.appendChild(el('p', null, n.body)); return c;
+  }
+  var nl = $('#newsList'), hn = $('#homeNews');
+  var all = sortedNews();
+  if (!all.length) { nl.appendChild(el('div', 'empty', 'لا توجد أخبار منشورة حالياً.')); hn.appendChild(el('div', 'empty', 'لا توجد أخبار منشورة حالياً.')); }
+  all.forEach(function (n) { nl.appendChild(newsCard(n)); });
+  all.slice(0, 2).forEach(function (n) { hn.appendChild(newsCard(n)); });
+
+  // الشواغر
+  $('#vacStamp').textContent = D.updatedAt || '';
+  function renderVac() {
+    var box = $('#vacList'); box.innerHTML = '';
+    var type = $('#vacType').value, q = $('#vacQ').value.trim();
+    var list = (D.vacancies || []).filter(function (v) {
+      if (type && v.type !== type) return false;
+      if (q && [v.university, v.college, v.program].join(' ').indexOf(q) === -1) return false;
+      return true;
+    });
+    if (!list.length) {
+      var e = el('div', 'empty'); e.style.gridColumn = '1 / -1';
+      e.appendChild(el('p', null, (D.vacancies || []).length ? 'لا توجد نتائج مطابقة لبحثك.' : 'لا توجد شواغر منشورة حالياً. نضيف المعلومات هنا بعد التأكد منها فقط. للاستفسار عن آخر المستجدات تواصل معنا.'));
+      var b = el('a', 'btn solid', 'اسأل عبر واتساب'); b.href = wa('السلام عليكم، أرغب في معرفة الشواغر الجامعية المتاحة'); b.target = '_blank'; b.rel = 'noopener';
+      e.appendChild(b); box.appendChild(e); return;
+    }
+    list.forEach(function (v) {
+      var c = el('div', 'card'); var top = el('div');
+      top.appendChild(el('span', 'badge', v.type === 'private' ? 'خاصة' : 'حكومية'));
+      c.appendChild(top); c.appendChild(el('h3', null, v.university + (v.program ? ' – ' + v.program : '')));
+      var kv = el('div', 'kv');
+      [['college', 'الكلية'], ['rate', 'نسبة القبول'], ['conditions', 'شروط التقديم'], ['dates', 'مواعيد التقديم'], ['notes', 'ملاحظات']].forEach(function (k) {
+        if (v[k[0]]) { kv.appendChild(el('b', null, k[1])); kv.appendChild(el('span', null, v[k[0]])); }
+      });
+      c.appendChild(kv);
+      if (v.updated) { var u = el('div', 'meta'); u.appendChild(document.createTextNode('آخر تحديث: ')); u.appendChild(el('span', 'num', v.updated)); c.appendChild(u); }
+      box.appendChild(c);
+    });
+  }
+  $('#vacType').addEventListener('change', renderVac);
+  $('#vacQ').addEventListener('input', renderVac);
+  renderVac();
+
+  // تتبع الطلب
+  var STEPS = [['received', 'تم استلام الطلب'], ['reviewing', 'جارٍ مراجعة البيانات'], ['processing', 'قيد تنفيذ إجراءات التقديم'], ['done', 'اكتمل التقديم']];
+  function norm(s) { return String(s).toUpperCase().replace(/[^A-Z0-9]/g, ''); }
+  function sha256(t) {
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)).then(function (b) {
+      return Array.prototype.map.call(new Uint8Array(b), function (x) { return x.toString(16).padStart(2, '0'); }).join('');
+    });
+  }
+  $('#trackForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var out = $('#trackOut'); out.innerHTML = '';
+    var v = norm($('#ref').value);
+    if (!v) return;
+    if (!window.crypto || !crypto.subtle) { out.appendChild(el('div', 'msg', 'تعذر الاستعلام على هذا المتصفح. تواصل معنا عبر واتساب.')); return; }
+    sha256(v).then(function (h) {
+      var hit = (D.tracking || []).filter(function (t) { return t.h === h; })[0];
+      if (!hit) { out.appendChild(el('div', 'msg', 'لم نعثر على طلب بهذا الرقم. تأكد من الرقم أو تواصل معنا.')); return; }
+      var idx = STEPS.map(function (s) { return s[0]; }).indexOf(hit.status);
+      var ol = el('ol', 'steps');
+      STEPS.forEach(function (s, i) {
+        var li = el('li', (i <= idx ? 'on ' : '') + (i === idx ? 'now' : '')); li.appendChild(el('span', 'dot')); li.appendChild(el('span', null, s[1])); ol.appendChild(li);
+      });
+      out.appendChild(ol);
+      if (hit.updated) { var m = el('div', 'meta'); m.style.marginTop = '12px'; m.appendChild(document.createTextNode('آخر تحديث: ')); m.appendChild(el('span', 'num', hit.updated)); out.appendChild(m); }
+    });
+  });
+
+  // نموذج الاستفسار
+  $('#msgForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var n = $('#mName').value.trim(), p = $('#mPhone').value.trim(), t = $('#mText').value.trim();
+    var msg = 'السلام عليكم، أنا ' + n + (p ? ' (' + p + ')' : '') + '\n' + t;
+    window.open(wa(msg), '_blank', 'noopener');
+  });
+
+  // تنزيل الشعار
+  $('#dlLogo').addEventListener('click', function () {
+    var svg = LOGO.replace('<svg ', '<svg width="600" height="600" ').replace('role="img"', 'role="img"').replace('>', '><rect width="120" height="120" rx="24" fill="#0B2545"/>');
+    var url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
+    var a = document.createElement('a'); a.href = url; a.download = 'abu-talha-logo.svg'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(url); }, 500);
+  });
+
+  // التنقل
+  var pages = ['home', 'services', 'vacancies', 'news', 'faq', 'track', 'identity', 'contact'];
+  var nav = $('#nav'), mb = $('#menuBtn');
+  mb.addEventListener('click', function () { var o = nav.classList.toggle('open'); mb.setAttribute('aria-expanded', o); });
+  function route() {
+    var p = location.hash.replace(/^#\/?/, '') || 'home';
+    if (pages.indexOf(p) < 0) p = 'home';
+    $$('.page').forEach(function (s) { s.classList.toggle('show', s.id === 'p-' + p); });
+    $$('nav a').forEach(function (a) { a.classList.toggle('on', a.getAttribute('data-nav') === p); });
+    document.title = (p === 'home' ? '' : $('#p-' + p).getAttribute('data-title') + ' | ') + 'مركز أبو طلحة للتقديم الإلكتروني';
+    nav.classList.remove('open'); mb.setAttribute('aria-expanded', 'false');
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', route);
+  route();
+})();
+</script>
+</body>
+</html>
